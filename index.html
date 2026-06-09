@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FixIt Pro | AI-Powered Device Diagnostics</title>
+    <link rel="icon" href="./public/fixit-pro-icon.png" />
+    <!-- Google Fonts + modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== GLOBAL RESET & THEME VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-main: #0B0F1A;
+            --bg-card: #121826;
+            --bg-elevated: #1A1F2E;
+            --primary: #00E0FF;
+            --primary-glow: rgba(0, 224, 255, 0.4);
+            --secondary: #7C3AED;
+            --secondary-glow: rgba(124, 58, 237, 0.3);
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --text-main: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --border-light: rgba(255,255,255,0.08);
+            --transition-fast: 0.2s ease;
+            --transition-smooth: 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 10% 0%, #0B0F1A, #020617);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* ========== LANDING PAGE STYLES ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 20%, rgba(0,224,255,0.08), transparent 70%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-logo {
+            width: 130px;
+            margin-bottom: 1.2rem;
+            filter: drop-shadow(0 8px 20px rgba(0,224,255,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .hero-logo:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-badge {
+            background: rgba(0,224,255,0.12);
+            backdrop-filter: blur(8px);
+            padding: 0.35rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            border: 1px solid rgba(0,224,255,0.3);
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF 30%, var(--primary) 80%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .glow {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            margin: 1.2rem auto;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--text-muted);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0 2rem;
+        }
+
+        .cta-btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-family: inherit;
+        }
+
+        .primary-cta {
+            background: linear-gradient(105deg, var(--primary), #0099cc);
+            color: #0a0f1a;
+            box-shadow: 0 8px 20px rgba(0,224,255,0.3);
+        }
+
+        .primary-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 28px rgba(0,224,255,0.4);
+        }
+
+        .secondary-cta {
+            background: rgba(20, 30, 45, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .secondary-cta:hover {
+            background: rgba(0,224,255,0.15);
+            border-color: var(--primary);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .stat span {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .hero-ghost {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.2;
+            pointer-events: none;
+            animation: float 10s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        .g1 { top: 12%; left: 5%; animation-duration: 14s; }
+        .g2 { bottom: 15%; right: 6%; animation-duration: 12s; }
+        .g3 { top: 30%; right: 12%; animation-duration: 18s; }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            padding: 5rem 1rem;
+        }
+
+        .container-responsive {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: rgba(18, 24, 38, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform var(--transition-smooth);
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0,224,255,0.2);
+        }
+
+        .card-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(0,224,255,0.12);
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            text-align: center;
+            transition: all var(--transition-smooth);
+            border: 1px solid var(--border-light);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0,224,255,0.4);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+        }
+
+        .card-icon-small {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .arch-img {
+            width: 100%;
+            max-width: 880px;
+            border-radius: 28px;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6);
+            margin: 0 auto;
+            display: block;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-glass {
+            background: linear-gradient(115deg, rgba(18,24,38,0.9), rgba(28,35,52,0.8));
+            backdrop-filter: blur(16px);
+            border-radius: 2.5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(0,224,255,0.25);
+        }
+
+        .large-cta {
+            background: linear-gradient(105deg, var(--primary), var(--secondary));
+            padding: 1rem 2.2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: rgba(5, 8, 18, 0.9);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            width: 50px;
+            margin-bottom: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.8rem;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 640px) {
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .cta-btn { width: 80%; }
+            .section { padding: 3rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<header class="hero">
+    <div class="hero-content">
+        <img src="./public/fixit-pro-logo.png" class="hero-logo" alt="FixIt Pro Logo" />
+        <div class="hero-badge">AI-POWERED 2.0</div>
+        <h1 class="hero-title">FixIt <span class="glow">Pro</span></h1>
+        <p class="hero-text">
+            AI-powered diagnostics for modern devices.<br>
+            Understand problems. Reduce repair costs. Take control.
+        </p>
+        <div class="hero-buttons">
+            <button onclick="window.location.href='app.html'" class="cta-btn primary-cta">
+                ⚡ Start Diagnosis
+            </button>
+            <button onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})" class="cta-btn secondary-cta">
+                ✨ Explore Features
+            </button>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><span>98%</span> Accuracy</div>
+            <div class="stat"><span>5k+</span> Repairs</div>
+            <div class="stat"><span>Real-time</span> AI</div>
+        </div>
+    </div>
+    <div class="hero-ghost g1">👻</div>
+    <div class="hero-ghost g2">⚙️</div>
+    <div class="hero-ghost g3">🔧</div>
+</header>
+
+<!-- PROBLEM & SOLUTION SECTION -->
+<section class="section" id="problem-solution">
+    <div class="container-responsive">
+        <div class="two-columns">
+            <div class="info-card problem-card">
+                <div class="card-icon">⚠️</div>
+                <h2>The Problem</h2>
+                <p>Device repairs are unpredictable. Users face misdiagnosis, overcharging, uncertainty, and hidden risks.</p>
+            </div>
+            <div class="info-card solution-card">
+                <div class="card-icon">🚀</div>
+                <h2>The Solution</h2>
+                <p>FixIt Pro delivers instant AI-driven diagnostics, step-by-step repair guidance, cost insights, and intelligent safety warnings.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="section" id="features">
+    <div class="container-responsive">
+        <div class="section-header">
+            <span class="section-tag">Core Intelligence</span>
+            <h2>Next-gen Features</h2>
+            <p>Powered by advanced machine learning models</p>
+        </div>
+        <div class="grid">
+            <div class="card"><div class="card-icon-small">🧠</div><h3>AI Diagnosis Engine</h3><p>NLP for accurate fault detection</p></div>
+            <div class="card"><div class="card-icon-small">📘</div><h3>Step-by-Step Fix Guidance</h3><p>Visual & text walkthroughs</p></div>
+            <div class="card"><div class="card-icon-small">💰</div><h3>Cost Estimation</h3><p>Real-time parts & labor predictions</p></div>
+            <div class="card"><div class="card-icon-small">⚠️</div><h3>Risk Detection</h3><p>Safety alerts & hazard warnings</p></div>
+            <div class="card"><div class="card-icon-small">📊</div><h3>Confidence Scoring</h3><p>Certainty levels for decisions</p></div>
+            <div class="card"><div class="card-icon-small">🤖</div><h3>Smart Repair Decisions</h3><p>DIY vs professional recommendation</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ARCHITECTURE SECTION -->
+<section class="section">
+    <div class="container-responsive">
+        <div class="section-header">
+            <span class="section-tag">Architecture</span>
+            <h2>Intelligent Pipeline</h2>
+        </div>
+        <img src="./public/fixIt-pro-architechure.png" class="arch-img" alt="Architecture">
+    </div>
+</section>
+
+<!-- CALL TO ACTION SECTION -->
+<section class="section cta-section">
+    <div class="container-responsive">
+        <div class="cta-glass">
+            <h2>Ready to diagnose your device?</h2>
+            <p>Join thousands of smart users who reduced repair costs by up to 60%</p>
+            <button onclick="window.location.href='app.html'" class="cta-btn large-cta">
+                🛠️ Launch FixIt Pro App
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <img src="./public/fixit-pro-logo.png" class="footer-logo" alt="FixIt Pro">
+        <p>FixIt Pro — Built by Legends Tech</p>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Support</a>
+        </div>
+        <div class="footer-copy">© 2025 FixIt AI — next-gen diagnostics</div>
+    </div>
+</footer>
+
+</body>
+</html>

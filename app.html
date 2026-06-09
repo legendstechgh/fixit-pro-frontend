@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="./public/fixit-pro-icon.png">
+
+<title>FixIt Pro</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="loader.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="hero-section">
+        <img
+            src="./public/fixit-pro-logo.png"
+            alt="FixIt Pro Logo"
+            class="logo"
+        >
+
+        <h1 class="title">FixIt Pro</h1>
+
+        <p class="subtitle">
+            AI-Powered Device Diagnostics & Repair Assistant
+        </p>
+    </div>
+
+    <!-- DIAGNOSIS FORM -->
+    <div class="diagnosis-card">
+
+        <label class="section-label">
+            Select Device
+        </label>
+
+        <select id="device" class="input">
+            <option value="phone">📱 Phone</option>
+            <option value="laptop">💻 Laptop</option>
+            <option value="refrigerator">🧊 Refrigerator</option>
+            <option value="washing machine">🧺 Washing Machine</option>
+            <option value="microwave">🍽️ Microwave</option>
+        </select>
+
+        <label class="section-label">
+            Describe the Problem
+        </label>
+
+        <textarea
+            id="symptom"
+            class="textbox"
+            placeholder="Example: My phone screen is flickering and becoming dim..."
+        ></textarea>
+
+        <button
+            id="diagnoseBtn"
+            class="btn diagnose-btn"
+            type="button"
+        >
+            🔧 Diagnose Device
+        </button>
+
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader">
+        <div class="ghost-body">👻</div>
+        <div class="loader-text">
+            Analyzing your device...
+        </div>
+    </div>
+
+    <!-- RESULTS SECTION -->
+    <div class="results-section">
+
+        <h2 class="results-title">
+            🩺 Diagnosis Results
+        </h2>
+
+        <div id="result" class="result">
+            <div class="placeholder-result">
+                Enter a device problem and click
+                <strong>Diagnose Device</strong>
+                to see results here.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <hr class="divider">
+
+    <!-- CONNECTION PANEL -->
+    <div class="connection-panel">
+
+        <h3>
+            ⚙️ Developer Tools
+        </h3>
+
+        <p>
+            Backend testing and diagnostics
+        </p>
+
+        <div class="button-group">
+
+            <button
+                type="button"
+                onclick="runConnectionTest()"
+                class="btn test-btn"
+            >
+                Test Backend
+            </button>
+
+            <button
+                type="button"
+                onclick="runDiagnosisTest()"
+                class="btn test-btn"
+            >
+                Test Diagnosis
+            </button>
+
+        </div>
+
+        <div
+            id="connectionResult"
+            class="test-result"
+        ></div>
+
+    </div>
+
+</div>
+
+<!-- ONLY ONE SCRIPT - NO INLINE JAVASCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
