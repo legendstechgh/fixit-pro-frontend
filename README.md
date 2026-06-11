@@ -1,6 +1,6 @@
 # FixIt Pro Frontend
 
-![FixIt Pro](public/fixit-pro-logo.png)
+![FixIt Pro](https://github.com/legendstechgh/fixit-pro-frontend/blob/main/public/fixIt-pro-Logo.png)
 
 **AI-Powered Device Diagnostics & Repair Assistant**
 
