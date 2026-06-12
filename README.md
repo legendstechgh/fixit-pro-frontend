@@ -2,7 +2,7 @@
 
 ![FixIt Pro](https://github.com/legendstechgh/fixit-pro-frontend/blob/main/public/fixIt-pro-Logo.png)
 
-**AI-Powered Device Diagnostics & Repair Assistant*
+**AI-Powered Device Diagnostics & Repair Assistant**
 
 Intelligent Device Diagnostics & Repair Assistant
 FixIt Pro Frontend is the user-facing web application for the FixIt Pro platform.
